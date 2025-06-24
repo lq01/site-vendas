@@ -37,9 +37,10 @@ class Produto {
         if ($stmt->execute()) {
             $resultado = $stmt->get_result();
             return $resultado->fetch_all(MYSQLI_ASSOC);
-        } else {
-            return false;
         }
+        return false;
+        
+
     }
     public function lancarEstoque($id_produto, $qt_estoque_lancado){
         $stmt = $this->conn->prepare("UPDATE produtos SET qt_estoque = qt_estoque + ? WHERE id_produto = ?");
