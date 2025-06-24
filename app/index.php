@@ -2,14 +2,14 @@
 <form method="POST" action="controllers/produtoController.php">
     <input type="hidden" name="acao" value="cadastrar">
     <input type="text" name="nome" placeholder="Nome do produto">
-    <input type="number" step = "1" id="cadastro_cod_barras" name="cod_barras" placeholder="código de barras" minlength="13" maxlength="13">
+    <input type="text" step = "1" id="cadastro_cod_barras" name="cod_barras" placeholder="código de barras" minlength="13" maxlength="13">
     <input type="number" step="0.01" name="valor" placeholder="Valor">
     <input type="number" step ="0.001" name="qt_estoque" placeholder="Quantidade">
     <button type="submit">Cadastrar</button>
 </form>
 <h2>Consultar produto por nome ou ID no banco de dados</h2>
 <form method="POST" action="controllers/produtoController.php">
-    <input type="hidden" name="acao" value="buscar_produto_nome_id">
+    <input type="hidden" name="acao" value="buscar_produto_nome_id_codBarras">
     <input type="text" name="nome_id_produto" placeholder="Nome/ID do produto">
     <button type="submit">Buscar</button>
 </form>

@@ -42,6 +42,19 @@ class Produto {
         
 
     }
+    public function buscarCodBarras($termo_busca){
+        $termo_busca_curingas = '%' . $termo_busca .'%'; //"curingas" é o nome dado a esses '%' 
+        $stmt = $this->conn->prepare("SELECT * FROM produtos WHERE codigo_barras LIKE ?");
+        $stmt->bind_param("s", $termo_busca_curingas);
+
+        if ($stmt->execute()) {
+            $resultado = $stmt->get_result();
+            return $resultado->fetch_all(MYSQLI_ASSOC);
+        }
+        return false;
+        
+
+    }
     public function lancarEstoque($id_produto, $qt_estoque_lancado){
         $stmt = $this->conn->prepare("UPDATE produtos SET qt_estoque = qt_estoque + ? WHERE id_produto = ?");
         $stmt->bind_param("di", $qt_estoque_lancado, $id_produto);

@@ -19,14 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Erro ao cadastrar o produto."; //return no lugar de echo
         }
     }
-    if ($acao === 'buscar_produto_nome_id'){
+    if ($acao === 'buscar_produto_nome_id_codBarras'){
         $resultado = null;
         $termo_busca = strtoupper($_POST['nome_id_produto']) ?? "";
         if (empty($termo_busca)) {echo "Nome ou ID não fornecidos, retornando todos os resultados: <br>";}
 
         if (substr($termo_busca,0,1) == "%" || empty($termo_busca)) { //Busca por nome usando % antes do termo de pesquisa
-            $produto_buscado = new Produto($conn);
+            $produto_buscado = new Produto($conn); 
+            if (substr($termo_busca,1,1) == "%"){ //Busca por codigo de barras com '%%'
+            $resultado = $produto_buscado->buscarCodBarras(substr($termo_busca, 2));
+            } else {
             $resultado = $produto_buscado->buscarNome(substr($termo_busca, 1));
+            }
         } else if (is_numeric($termo_busca)) { //Busca por nome usando % antes do termo de pesquisa
             $produto_buscado = new Produto($conn);
             $resultado = $produto_buscado->buscarID($termo_busca);
