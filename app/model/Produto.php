@@ -17,7 +17,6 @@ class Produto {
             return false;
         }
     }
-
     public function buscarID($id_produto){
         $stmt = $this->conn->prepare("SELECT * FROM produtos WHERE id_produto = ?");
         $stmt->bind_param("i", $id_produto);
@@ -57,8 +56,7 @@ class Produto {
             echo "Erro ao adicionar estoque: ID de produto não encontrada." ;
             return false; 
         }
-    }
-    
+    }  
     public function editarProduto($id_produto, $cod_barras, $nome, $qt_estoque, $valor, $status){
     if (empty($id_produto) || !is_numeric($id_produto) || $id_produto <= 0) {
         echo "Digite o ID de produto para fazer modificações";
@@ -66,7 +64,6 @@ class Produto {
     }
     $id_produto = (int)$id_produto;
     $success = true;
-
 
     if (!empty($cod_barras) && (strlen((string)$cod_barras) === 13)) {
         $stmt = $this->conn->prepare("UPDATE produtos SET codigo_barras = ? WHERE id_produto = ?");
@@ -77,7 +74,6 @@ class Produto {
         }
         $stmt->close();
     }
-
     if (!empty($nome)) {
         $stmt = $this->conn->prepare("UPDATE produtos SET nome = ? WHERE id_produto = ?");
         $stmt->bind_param("si", $nome, $id_produto);
@@ -87,7 +83,6 @@ class Produto {
         }
         $stmt->close();
     }
-    
     if (!empty($qt_estoque) || $qt_estoque == 0) {
         if (is_numeric($qt_estoque)) {
             $qt_estoque = (int)$qt_estoque;
@@ -118,7 +113,6 @@ class Produto {
             $success = false;
         }
     }
-
     if (!empty($status) || $status == 0) {
         if (is_numeric($status)) {
             $status = (int)$status;
@@ -135,7 +129,5 @@ class Produto {
         }
     }
     return $success;
-} //TODO: front-end verifica se nenhum campo está vazio
-
-}   
-?>
+    }
+}

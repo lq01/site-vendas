@@ -7,45 +7,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $acao = $_POST['acao'];
 
     if ($acao === 'cadastrar') {
-        $nome = $_POST['nome'];
+        $nome = strtoupper($_POST['nome']);
         $cod_barras = $_POST['cod_barras'];
         $valor = $_POST['valor'];
         $qt_estoque = $_POST['qt_estoque'];
 
         $produto = new Produto($conn);
         if ($produto->cadastrar($nome, $cod_barras, $valor, $qt_estoque)) {
-            return "Produto cadastrado com sucesso!";
+            echo "Produto cadastrado com sucesso!";  //return no lugar de echo
         } else {
-            return "Erro ao cadastrar o produto.";
+            echo "Erro ao cadastrar o produto."; //return no lugar de echo
         }
     }
-    if ($acao === 'buscar_produto_ID') {
-        $id = $_POST['id_produto'] ?? "";
-        if (!empty($id)) {
+    if ($acao === 'buscar_produto_nome_id'){
+        $resultado = null;
+        $termo_busca = strtoupper($_POST['nome_id_produto']) ?? "";
+        if (empty($termo_busca)) {echo "Nome ou ID não fornecidos, retornando todos os resultados: <br>";}
+
+        if (substr($termo_busca,0,1) == "%") { //Busca por nome usando % antes do termo de pesquisa
             $produto_buscado = new Produto($conn);
-            $resultado = $produto_buscado->buscarID($id);
-            if ($resultado === null) {
-                echo "Produto não encontrado.";
-                return false;
-            }
-            return json_encode($resultado, JSON_PRETTY_PRINT);
-        } else {
-            return "ID não fornecido";
-        }
-}
-    if ($acao === 'buscar_produto_nome'){
-        $nome_produto = $_POST['nome_produto'] ?? "";
-        if (!empty($nome_produto)) {
+            $resultado = $produto_buscado->buscarNome(substr($termo_busca, 1));
+        } else if (is_numeric($termo_busca)) { //Busca por nome usando % antes do termo de pesquisa
             $produto_buscado = new Produto($conn);
-            $resultado = $produto_buscado->buscarNome($nome_produto);
-            if ($resultado === null || $resultado === false) {
-                echo "Produto não encontrado.";
-                return false;
-            }
-            echo json_encode($resultado, JSON_PRETTY_PRINT);
-        } else {
-            return "Nome não fornecido";
+            $resultado = $produto_buscado->buscarID($termo_busca);
+        } 
+        if ($resultado == null || $resultado === false) {
+            echo "Produto(s) não encontrado(s)."; //return no lugar de echo
+            return false;
         }
+        echo json_encode($resultado, JSON_PRETTY_PRINT); //return no lugar de echo  
     }
     if ($acao === 'lancar_estoque_produto'){
         $id = $_POST['id_produto'] ?? "";
@@ -61,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if ($acao === 'editar_produto') {
         $id = $_POST['id_produto'] ?? "";
-        $nome_editar = $_POST["nome_produto"] ?? "";
+        $nome_editar = strtoupper($_POST["nome_produto"]) ?? "";
         $estoque_editar = $_POST["qt_estoque"] ?? "";
         $cod_barras_editar = $_POST["cod_barras"] ?? "";
         $valor_editar = $_POST["valor_produto"] ?? "";
@@ -81,4 +71,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-?>

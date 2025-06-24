@@ -7,16 +7,10 @@
     <input type="number" step ="0.001" name="qt_estoque" placeholder="Quantidade">
     <button type="submit">Cadastrar</button>
 </form>
-<h2>Consultar ID de produto no banco de dados</h2>
+<h2>Consultar produto por nome ou ID no banco de dados</h2>
 <form method="POST" action="controllers/produtoController.php">
-    <input type="hidden" name="acao" value="buscar_produto_ID">
-    <input type="number" step="1" name="id_produto" placeholder="ID do produto">
-    <button type="submit">Buscar</button>
-</form>
-<h2>Consultar nome de produto no banco de dados</h2>
-<form method="POST" action="controllers/produtoController.php">
-    <input type="hidden" name="acao" value="buscar_produto_nome">
-    <input type="text" name="nome_produto" placeholder="Nome do produto">
+    <input type="hidden" name="acao" value="buscar_produto_nome_id">
+    <input type="text" name="nome_id_produto" placeholder="Nome/ID do produto">
     <button type="submit">Buscar</button>
 </form>
 <h2>Lançar unidades de um produto</h2>
@@ -57,6 +51,4 @@
     if (editar_cod_barras) {
         editar_cod_barras.addEventListener("keyup", limitarCaracteresInput);
     }
-
-
 </script>
