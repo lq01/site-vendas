@@ -8,6 +8,7 @@
     <button type="submit">Cadastrar</button>
 </form>
 <h2>Consultar produto por nome ou ID no banco de dados</h2>
+<p>Para Buscar por ID, apenas digite o número do ID. Para buscar por nome, digite % antes do nome. Para busca por código de barras, digite %% antes do código de barras.</p>
 <form method="POST" action="controllers/produtoController.php">
     <input type="hidden" name="acao" value="buscar_produto_nome_id_codBarras">
     <input type="text" name="nome_id_produto" placeholder="Nome/ID do produto">
