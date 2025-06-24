@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $termo_busca = strtoupper($_POST['nome_id_produto']) ?? "";
         if (empty($termo_busca)) {echo "Nome ou ID não fornecidos, retornando todos os resultados: <br>";}
 
-        if (substr($termo_busca,0,1) == "%") { //Busca por nome usando % antes do termo de pesquisa
+        if (substr($termo_busca,0,1) == "%" || empty($termo_busca)) { //Busca por nome usando % antes do termo de pesquisa
             $produto_buscado = new Produto($conn);
             $resultado = $produto_buscado->buscarNome(substr($termo_busca, 1));
         } else if (is_numeric($termo_busca)) { //Busca por nome usando % antes do termo de pesquisa
