@@ -32,12 +32,13 @@
     <input type="number" step = "1" name="status_produto" placeholder="status do produto" maxlength="1">
     <button type="submit">Confirmar</button>
 </form>
-<h1>Vendas</h1>
-<h2>Criar venda</h2>
-<form method="POST" action="controllers/produtoController.php"></form>
-CONTINUAR A PARTIR DAQUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<h1>Simular venda</h1>
+<form method="POST" action="controllers/vendaController.php">
+    <button type="submit">Confirmar</button>
+</form>
+
+
 <script>
-    //TODO: CRIAR UM CONVERSOR DE MINUSCULA PRA MAIUSCULA EM CADASTRO NOME
     let cadastro_cod_barras = document.getElementById("cadastro_cod_barras");
     let editar_cod_barras = document.getElementById("editar_cod_barras");
     let LIMITE_CARACTERES_COD_BARRAS = 13;
