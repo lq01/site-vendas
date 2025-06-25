@@ -1,5 +1,5 @@
 <?php
-//TODO: posteriormente, remover os 'echo's do codigo.
+//TODO: posteriormente, remover os 'echo's do codigo
 class Produto {
     private $conn;
 
