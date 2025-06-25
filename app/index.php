@@ -1,3 +1,4 @@
+<h1>Produtos</h1>
 <h2>Cadastrar um produto</h2>
 <form method="POST" action="controllers/produtoController.php">
     <input type="hidden" name="acao" value="cadastrar">
@@ -31,6 +32,10 @@
     <input type="number" step = "1" name="status_produto" placeholder="status do produto" maxlength="1">
     <button type="submit">Confirmar</button>
 </form>
+<h1>Vendas</h1>
+<h2>Criar venda</h2>
+<form method="POST" action="controllers/produtoController.php"></form>
+CONTINUAR A PARTIR DAQUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 <script>
     //TODO: CRIAR UM CONVERSOR DE MINUSCULA PRA MAIUSCULA EM CADASTRO NOME
     let cadastro_cod_barras = document.getElementById("cadastro_cod_barras");

@@ -6,29 +6,55 @@ class Venda {
     private $lista_produtos;
     private $venda_aberta;
     private $produto_buscado;
+    private $valor_venda;
+    private $metodo_pagamento;
 
     public function __construct($conexao) {
         $this->conn = $conexao;
         $this->lista_produtos = [];
         $this->venda_aberta = false;
         $this->produto_buscado = new Produto($this->conn);
+        $this->valor_venda = 0.00;
+        $this->metodo_pagamento = '';
     }
 
     public function abrirVenda() {//função que abre uma lista para adicionar produtos a venda
         $this->venda_aberta = true;
         $this->lista_produtos = [];
+        $this->metodo_pagamento = '';
+        $this->valor_venda = 0.00;
         return true;
     }
     public function fecharVenda() {
-        if ($this->venda_aberta) {
-            $this->venda_aberta = false;
-            return true;
+        if (!$this->venda_aberta) {
+            echo "Venda não aberta. Abra uma venda antes de fechá-la.";
+            return false;
         }
-        echo "Venda não aberta. Abra uma venda antes de fechá-la.";
-        return false;
+        if (empty($this->lista_produtos)) {
+            echo "Nenhum produto adicionado à venda. Adicione produtos antes de fechar a venda.";
+            return false;
+        }
+        if ($this->metodo_pagamento == '') {
+            echo "Método de pagamento não definido. Defina um método de pagamento antes de fechar a venda.";
+            return false;
+        }
+        $this->venda_aberta = false;
+        return true;
     }
-    public function registrarVenda() {
-        
+    public function registrarVenda($metodo_pagamento) {
+        if ($this->venda_aberta) {
+            echo "A venda ainda está aberta. Feche-a antes de registrá-la.";
+            return false;
+        }
+        $this->valor_venda = 0.00;
+        foreach ($this->lista_produtos as $produto) {
+            $this->valor_venda += $produto['subtotal_produto'];
+        }
+        $this->metodo_pagamento = strtoupper($metodo_pagamento);
+        $stmt = $this->conn->prepare("INSERT INTO vendas (valor_venda, metodo_pagamento, produtos_vendidos) VALUES (?, ?, ?)");
+        $stmt->bind_param("dss", $this->valor_venda, $this->metodo_pagamento, json_encode($this->lista_produtos));
+        $stmt->execute();
+        return true;
     }
     public function adicionarProduto($id_produto, $qt_vendida) {
         if (!$this->venda_aberta) {
