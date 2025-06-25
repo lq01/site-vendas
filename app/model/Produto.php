@@ -18,7 +18,7 @@ class Produto {
         }
     }
     public function buscarID($id_produto){
-        $stmt = $this->conn->prepare("SELECT * FROM produtos WHERE id_produto = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM produtos WHERE id_produto = ?"); //AND status = 1?
         $stmt->bind_param("i", $id_produto);
         
         if ($stmt->execute()) {

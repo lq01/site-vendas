@@ -2,6 +2,7 @@
 require_once '../includes/db.php';
 require_once '../model/Produto.php';
 //TODO: obter dados especificos dos JSONs retornados.
+//TODO: corrigir salvamento de valores monetarios no banco estão como float ao invés de decimal
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $acao = $_POST['acao'];
