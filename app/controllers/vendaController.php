@@ -3,7 +3,7 @@ require_once '../includes/db.php';
 require_once '../model/Venda.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //$acao = $_POST['acao'];
+    //$acao = $_POST['acao']; comentário pra desativar temporariamente o if
     //if ($acao === 'simular_venda'){
         $venda = new Venda($conn);
         $venda->abrirVenda();

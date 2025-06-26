@@ -144,4 +144,5 @@ class Produto {
     }
     return $success;
     }
+    //TODO: INDAGAÇÃO: Devo criar uma função obterProduto($id_produto) que retorne o produto completo, e exatamente o produto buscado, ou seja, com todos os atributos?
 }
