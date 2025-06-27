@@ -1,6 +1,7 @@
 <?php
 require_once '../includes/db.php';
 require_once '../model/Produto.php';
+require_once '../helpers/ManagerUI.php';
 //TODO: obter dados especificos dos JSONs retornados.
 //TODO: corrigir salvamento de valores monetarios no banco estão como float ao invés de decimal
 
