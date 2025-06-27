@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -11,9 +10,24 @@
     </head>
 
     <body>
-        <?php require __DIR__ . "/includes/header.php"; ?>
+        <?php include 'includes/header.php'; ?>
         <div id="conteudo">
-
+            <?php 
+            $pagina = $_GET['pagina'] ?? 'produtos';
+            switch ($pagina) {
+                case 'produtos':
+                    include 'views/produtos.php';
+                    break;
+                case 'venda':
+                    include 'views/venda.php';
+                    break;
+                case 'registro_vendas':
+                    include 'views/registro_vendas.php';
+                    break;
+                default:
+                    include 'views/produtos.php';
+            }
+        ?>
         </div>
     </body>
 </html>

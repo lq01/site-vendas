@@ -1,18 +1,25 @@
- function carregarPagina(url) {
-    fetch(url)
-        .then(response => response.text())
+function navegar(pagina) {
+    history.pushState({pagina}, "", `?pagina=${pagina}`);
+    carregarConteudo(pagina);
+}
+
+window.onpopstate = function (event) {
+    const pagina = new URLSearchParams(window.location.search).get("pagina") || "produtos";
+    carregarConteudo(pagina);
+};
+
+function carregarConteudo(pagina) {
+    fetch(`views/${pagina}.php`)
+        .then(resp => resp.text())
         .then(html => {
             document.getElementById("conteudo").innerHTML = html;
         })
-        .catch(error => console.error('Erro ao carregar página:', error));
+        .catch(() => {
+            document.getElementById("conteudo").innerHTML = "<p>Erro ao carregar página.</p>";
+        });
 }
 
-/*explicação disso pra relembrar:
-O fetch(pagina.php) retorna uma Promise com um objeto Response (a resposta da requisição).
-
-O primeiro .then() recebe essa resposta.
-
-Os próximos .then() recebem o valor que foi retornado pelo .then() anterior — ou seja, 
-uma transformação da resposta original, não outra resposta nova.
-
-*/
+document.addEventListener("DOMContentLoaded", () => {
+    const pagina = new URLSearchParams(window.location.search).get("pagina") || "venda";
+    carregarConteudo(pagina);
+});

@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* Base */
-*, *::before, *::after {
+* {
     font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -22,6 +22,16 @@ body {
     background-color: #b38c8c;
 
 }
+h1 {
+    font-size: 20px;
+    font-weight: 500;
+}
+h2 {
+    font-size: 18px;
+}
+h3 {
+    font-size: 16px;
+}
 
 /*Barra de navegação */
 #navbar {
@@ -36,6 +46,8 @@ body {
     width: 140px;
     height: 40px;
     margin-right: 15px;
+    font-weight: 450;
+    font-size: 14px;
 }
 #btn_nova_venda {
     /*TODO: modificar estilo desse botão específico depois*/
