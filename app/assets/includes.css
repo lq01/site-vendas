@@ -1,0 +1,51 @@
+/* Definido fontes */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Base */
+*, *::before, *::after {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 14px;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #b38c8c;
+
+}
+
+/*Barra de navegação */
+#navbar {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    background-color: steelblue;
+    
+}
+.btn_navbar {
+    width: 140px;
+    height: 40px;
+    margin-right: 15px;
+}
+#btn_nova_venda {
+    /*TODO: modificar estilo desse botão específico depois*/
+}
+/* Conteúdo (páginas) */
+#conteudo {
+    background-color: bisque;
+    flex: 1 1 auto; 
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 0;
+}
