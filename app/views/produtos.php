@@ -23,13 +23,24 @@
                             <!--O cabeçalho deve permanecer fixo, mas a tabela deve ser rolável,
                             configurar isso depois-->
                             <tr>
-                                <th>ID</th>
-                                <th>Cód. Barras</th>
-                                <th>Nome</th>   
-                                <th>Estoque</th>
-                                <th>Valor</th>
+                                <th id="tabela_colunaID">ID</th>
+                                <th id="tabela_colunaCodBarras">Cód. Barras</th>
+                                <th id="tabela_colunaNome">Nome</th>   
+                                <th id="tabela_colunaEstoque">Estoque</th>
+                                <th id="tabela_colunaValor">Valor</th>
                         </thead>
                         <tbody id="tabela_produtos">
+                            <?php 
+                            for ($i = 1; $i <= 15; $i++) {
+                                echo "<tr>";
+                                echo "<td id='tabela_colunaID'>".htmlspecialchars($i) ."</td>";
+                                echo "<td id='tabela_colunaCodBarras'>". htmlspecialchars("7891234567890") ."</td>";
+                                echo "<td id='tabela_colunaNome'>". htmlspecialchars("LOREMIPSUM SEILAOQUE DA SILVA COCACOLA HALLSMENTA") ."</td>";
+                                echo "<td id='tabela_colunaEstoque'>". htmlspecialchars("estoque") ."</td>";
+                                echo "<td id='tabela_colunaValor'>". htmlspecialchars("valor") ."</td>";
+                                echo "</tr>";
+                            }
+                            ?>
                             <!-- TODO: Os produtos serão inseridos aqui dinamicamente, configurar isso mais tarde 
                             Devo criar uma classe pra gerar diferentes tabelas de produtos para cada view?-->
                         </tbody>
