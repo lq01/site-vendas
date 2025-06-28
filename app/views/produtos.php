@@ -1,14 +1,12 @@
 <!--TODO: PREENCHER AS CLASSES DE BOTÕES DEPOIS -->
 <link rel="stylesheet" type="text/css" href="assets/produtos.css">
+<link rel="stylesheet" type="text/css" href="assets/componentesUI.css">
 <div id="produtos">
     <div id="produtos_areaListagem">
         <div id="produtos_navbar">
                 <div id="produtos_navbar_pesquisa">
-                    <form id="produtos_navbar_pesquisa_form" method="POST" action="controllers/produtoController.php">
-                        <input class="produtos_navbar_pesquisa_form_item" type="hidden" name="acao" value="buscar_produto_nome_id_codBarras">
-                        <input class="produtos_navbar_pesquisa_form_item" type="text" name="nome_id_produto" placeholder="Nome/ID do produto">
-                        <button class="produtos_navbar_pesquisa_form_item" type="submit">Ir</button>
-                        <img id="info_pesquisa" src="assets/img/info.png" width="25" height="25" title="Digite % para pesquisar por nome. Digite %% para pesquisar por código de barras.">
+                    <input type="text" id="campo_pesquisa_produto" name="campo_pesquisa_produto" placeholder="Buscar produto...">
+                    <img id="info_pesquisa" src="assets/img/info.png" width="25" height="25" title="Digite % para pesquisar por nome. Digite %% para pesquisar por código de barras.">
                     </form>
                             
                 </div>
@@ -23,24 +21,14 @@
                             <!--O cabeçalho deve permanecer fixo, mas a tabela deve ser rolável,
                             configurar isso depois-->
                             <tr>
-                                <th id="tabela_colunaID">ID</th>
-                                <th id="tabela_colunaCodBarras">Cód. Barras</th>
-                                <th id="tabela_colunaNome">Nome</th>   
-                                <th id="tabela_colunaEstoque">Estoque</th>
-                                <th id="tabela_colunaValor">Valor</th>
+                                <th class="tabela_colunaID">ID</th>
+                                <th class="tabela_colunaCodBarras">Cód. Barras</th>
+                                <th class="tabela_colunaNome">Nome</th>   
+                                <th class="tabela_colunaEstoque">Estoque</th>
+                                <th class="tabela_colunaValor">Valor</th>
                         </thead>
                         <tbody id="tabela_produtos">
-                            <?php 
-                            for ($i = 1; $i <= 15; $i++) {
-                                echo "<tr>";
-                                echo "<td id='tabela_colunaID'>".htmlspecialchars($i) ."</td>";
-                                echo "<td id='tabela_colunaCodBarras'>". htmlspecialchars("7891234567890") ."</td>";
-                                echo "<td id='tabela_colunaNome'>". htmlspecialchars("LOREMIPSUM SEILAOQUE DA SILVA COCACOLA HALLSMENTA") ."</td>";
-                                echo "<td id='tabela_colunaEstoque'>". htmlspecialchars("estoque") ."</td>";
-                                echo "<td id='tabela_colunaValor'>". htmlspecialchars("valor") ."</td>";
-                                echo "</tr>";
-                            }
-                            ?>
+
                             <!-- TODO: Os produtos serão inseridos aqui dinamicamente, configurar isso mais tarde 
                             Devo criar uma classe pra gerar diferentes tabelas de produtos para cada view?-->
                         </tbody>
@@ -72,5 +60,7 @@
             <button id="btn_editar_dados_produto">Editar Dados</button>
             <button id="btn_lancar_estoque_produto">Lançar Estoque</button>
         </div>
+
     </div>
 </div>
+

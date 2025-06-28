@@ -1,0 +1,9 @@
+/*Configurando características gerais dos componentes em todo o site*/
+/*Customizando botões*/
+/*Customizando inputs*/
+/*Customizando tabelas*/
+.linha_resultado {background-color: rgb(220, 220, 220);}
+.linha_resultado:hover {
+    background-color: rgb(200, 200, 200);
+    cursor: pointer;
+}

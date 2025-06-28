@@ -6,7 +6,7 @@ require_once '../helpers/ManagerUI.php';
 //TODO: corrigir salvamento de valores monetarios no banco estão como float ao invés de decimal
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $acao = $_POST['acao'];
+    $acao = $_POST['acao'] ?? '';
 
     if ($acao === 'cadastrar') {
         $nome = strtoupper($_POST['nome']);
@@ -23,25 +23,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if ($acao === 'buscar_produto_nome_id_codBarras'){
         $resultado = null;
-        $termo_busca = strtoupper($_POST['nome_id_produto']) ?? "";
-        if (empty($termo_busca)) {echo "Nome ou ID não fornecidos, retornando todos os resultados: <br>";}
+        $termo_busca = strtoupper($_POST['campo_pesquisa_produto'] ?? '');
 
-        if (substr($termo_busca,0,1) == "%" || empty($termo_busca)) { //Busca por nome usando % antes do termo de pesquisa
-            $produto_buscado = new Produto($conn); 
-            if (substr($termo_busca,1,1) == "%"){ //Busca por codigo de barras com '%%'
-            $resultado = $produto_buscado->buscarCodBarras(substr($termo_busca, 2));
+        if (substr($termo_busca, 0, 1) === "%" || empty($termo_busca)) {
+            $produto_buscado = new Produto($conn);
+            if (substr($termo_busca, 1, 1) === "%") {
+                $resultado = $produto_buscado->buscarCodBarras(substr($termo_busca, 2));
             } else {
-            $resultado = $produto_buscado->buscarNome(substr($termo_busca, 1));
+                $resultado = $produto_buscado->buscarNome(substr($termo_busca, 1));
             }
-        } else if (is_numeric($termo_busca)) { //Busca por nome usando % antes do termo de pesquisa
+        } else if (is_numeric($termo_busca)) {
             $produto_buscado = new Produto($conn);
             $resultado = $produto_buscado->buscarID($termo_busca);
-        } 
-        if ($resultado == null || $resultado === false) {
-            echo "Produto(s) não encontrado(s)."; //return no lugar de echo
-            return false;
         }
-        echo json_encode($resultado, JSON_PRETTY_PRINT); //return no lugar de echo  
+        if (empty($resultado)) {
+            echo "<tr><td colspan='5'>Produto(s) não encontrado(s).</td></tr>";
+            return;
+        }
+        echo renderizarLista("pesquisa_produto", json_encode($resultado));
+        return;
     }
     if ($acao === 'lancar_estoque_produto'){
         $id = $_POST['id_produto'] ?? "";
@@ -74,6 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
 
+    }
+    if ($acao === 'obter_informacoes_produto') { //Modificar depois para incluir imagem
+        $id = intval($_POST['id_produto'] ?? 0);
+        $produto = new Produto($conn);
+        $resultado = $produto->buscarID($id);
+        echo json_encode($resultado);
+        return;
     }
 }
 

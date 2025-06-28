@@ -22,12 +22,13 @@ class Produto {
         $stmt->bind_param("i", $id_produto);
         
         if ($stmt->execute()) {
-            $resultado = $stmt->get_result();
-            $produto = $resultado->fetch_assoc();
-            return $produto;
-        } else {
-            return false;
+        $resultado = $stmt->get_result();
+        $produto = $resultado->fetch_assoc();
+
+        return $produto ? [$produto] : [];
         }
+
+    return [];
     }
     public function buscarNome($termo_busca){
         $termo_busca_curingas = '%' . $termo_busca .'%'; //"curingas" é o nome dado a esses '%' 

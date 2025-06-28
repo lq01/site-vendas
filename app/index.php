@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>App de Vendas</title>
         <link rel="stylesheet" type="text/css" href="assets/includes.css">
-        <script src="assets/index.js" defer></script>
+
 
     </head>
 
@@ -29,6 +29,8 @@
             }
         ?>
         </div>
+        <script src="assets/index.js"></script>
+        <script src="assets/operacoes.js"></script>
     </body>
 </html>
 <!--
