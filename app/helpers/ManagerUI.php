@@ -25,8 +25,8 @@ function renderizarLista($tipo_lista, $conteudo){
             $html .= "<td class='tabela_colunaID'>" . htmlspecialchars($item['id_produto']) . "</td>";
             $html .= "<td class='tabela_colunaCodBarras'>" . htmlspecialchars($item['codigo_barras']) . "</td>";
             $html .= "<td class='tabela_colunaNome'>" . htmlspecialchars($item['nome']) . "</td>";
-            $html .= "<td class='tabela_colunaEstoque'>" . htmlspecialchars($item['qt_estoque']) . "</td>";
             $html .= "<td class='tabela_colunaValor'>" . htmlspecialchars($item['valor']) . "</td>";
+            $html .= "<td class='tabela_colunaEstoque'>" . htmlspecialchars($item['qt_estoque']) . "</td>";
             $html .= "</tr>";
         }
         return $html;

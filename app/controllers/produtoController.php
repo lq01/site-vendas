@@ -9,16 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $acao = $_POST['acao'] ?? '';
 
     if ($acao === 'cadastrar') {
-        $nome = strtoupper($_POST['nome']);
+        $nome = strtoupper($_POST['nome_produto']);
         $cod_barras = $_POST['cod_barras'];
-        $valor = $_POST['valor'];
+        $valor = $_POST['valor_produto'];
         $qt_estoque = $_POST['qt_estoque'];
 
         $produto = new Produto($conn);
         if ($produto->cadastrar($nome, $cod_barras, $valor, $qt_estoque)) {
-            echo "Produto cadastrado com sucesso!";  //return no lugar de echo
+            exit("ok");
         } else {
-            echo "Erro ao cadastrar o produto."; //return no lugar de echo
+            exit("erro");
         }
     }
     if ($acao === 'buscar_produto_nome_id_codBarras'){

@@ -11,7 +11,7 @@
                             
                 </div>
                 <div id="produtos_navbar_cadastrarProduto">
-                    <button id="btn_cadastrar_produto">Cadastrar Produto</button>
+                    <button id="btn_cadastrar_produto" onclick="abrirModalCadastro()">Cadastrar Produto</button>
                 </div>
         </div>
             <div id="produtos_areaListagem_containerLista">
@@ -24,8 +24,8 @@
                                 <th class="tabela_colunaID">ID</th>
                                 <th class="tabela_colunaCodBarras">Cód. Barras</th>
                                 <th class="tabela_colunaNome">Nome</th>   
-                                <th class="tabela_colunaEstoque">Estoque</th>
                                 <th class="tabela_colunaValor">Valor</th>
+                                <th class="tabela_colunaEstoque">Estoque</th>
                         </thead>
                         <tbody id="tabela_produtos">
 
@@ -40,14 +40,14 @@
         <div id="produtos_areaExibicao_detalhes">
             <div id="produtos_areaExibicao_detalhes_areaDadosProduto">
                 <h4 class="titulo_discreto">PRODUTO</h4>
-                <h1 id="lbl_ID_produto">1</h1>
-                <h2 class="lbl_info_produto" id="lbl_nome_produto">COCA-COLA ZERO 2L</h2>
+                <h1 id="lbl_ID_produto"></h1>
+                <h2 class="lbl_info_produto" id="lbl_nome_produto"></h2>
                 <h4 class="titulo_discreto">CÓDIGO DE BARRAS</h4>
-                <h3 class="lbl_info_produto" id="lbl_codigo_barras">7891234567890</h1>
+                <h3 class="lbl_info_produto" id="lbl_codigo_barras"></h1>
                 <h4 class="titulo_discreto">VALOR UNITÁRIO</h4>
-                <h3 class="lbl_info_produto" id="lbl_valor_unitario">R$ 12,00</h1>
+                <h3 class="lbl_info_produto" id="lbl_valor_unitario"></h1>
                 <h4 class="titulo_discreto">ESTOQUE ATUAL</h4>
-                <h2 class="lbl_info_produto" id="lbl_estoque_atual">100 un</h1>
+                <h2 class="lbl_info_produto" id="lbl_estoque_atual"></h1>
 
 
 
@@ -63,4 +63,13 @@
 
     </div>
 </div>
+<div id="modal_cadastro_produto" class="modal" style="display: none;">
+  <div class="modal_container" id="modal_cadastro_produto_container">
+    <div class="modal_header">
+        <h2>Cadastrar Produto</h2>
+    </div>
+    <div id="modal_cadastro_produto_conteudo"></div> 
+  </div>
+</div>
+
 

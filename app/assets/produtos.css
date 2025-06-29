@@ -25,13 +25,13 @@ h1, h2, h3, h4 {
 #produtos_navbar {
     flex-direction: row;
     background-color: rgb(120, 120, 120);
-    height: 60px;
+    height: 65px;
     align-items: center;
     padding-left: 20px;
 }
 #produtos_navbar_pesquisa {
     background-color: rgb(90, 90, 90);
-    height: 38px;
+    height: 42px;
     width: 30%;
     align-items: center;
 }
@@ -51,7 +51,7 @@ h1, h2, h3, h4 {
 #produtos_navbar_cadastrarProduto {
     flex-direction: row;
     background-color: rgb(90, 90, 90);
-    height: 38px;
+    height: 42px;
     width: 240px;
     margin-left: auto;
     justify-content: center;
@@ -116,7 +116,7 @@ tbody {
 .tabela_colunaNome {
     width: 60%;
 }
-.tabela_colunaEstoque, .tabela_colunaValor {
+.tabela_colunaValor, .tabela_colunaEstoque {
     width: 10%;
 }
 
@@ -160,4 +160,39 @@ tbody {
 }
 .lbl_info_produto {
     margin-bottom: 30px;
+}
+
+/*Modal de cadastro de produtos*/
+#modal_cadastro_produto_container {
+    width: 600px;
+}
+#modal_cadastro_produto_conteudo {
+    display: flex;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 0px;
+    padding-left: 20px;
+    flex-direction: column;
+}
+#area_cadastrar {
+    display: flex;
+    flex-direction: row;    
+    height: 350px;
+}
+#area_cadastrar_informacoes {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+#form_cadastro_produto {
+    display:flex;
+    flex-direction: column;
+    padding-bottom: 5px;
+}
+#area_cadastrar_imagem {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: start;
+    margin-left: auto;
 }

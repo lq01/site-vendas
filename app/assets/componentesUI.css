@@ -1,6 +1,115 @@
-/*Configurando características gerais dos componentes em todo o site*/
+/*Padronizando componentes gerais em todo o site*/
+/*Customizando modais*/
+.modal {
+  display: flex;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  overflow: auto;
+  align-content: center;
+}
+.modal_container {
+  background: rgb(240,240,240);
+  margin: 5% auto;
+  padding: 0px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.fechar {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal_header {
+    background-color: rgb(39, 114, 255);
+    display: flex;
+    height: 90px;
+    padding: 15px;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    color: white;
+
+}
+.modal_painel_botoes {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 80px;
+    border-top: 2px solid #ccc;
+    padding: 0 20px; 
+}
+.modal_botao {
+    height: 40px;
+    min-width: 110px;
+    margin-left: 10px;
+    border-color: gray;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+}
+.modal_img_produto {
+    height: 250px;
+    width: 250px;
+}
+/*Customizando forms*/
+form {
+    padding: 10px;
+}
+.input_container {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
 /*Customizando botões*/
+button {
+    height: 50px;
+    cursor: pointer;
+}
+.botao_confirmar {
+    transition: 0.5s;
+    border-style: solid;
+    border-width: 1px;
+}
+.botao_confirmar:hover {
+    transition: 0.5s;
+    background-color: rgb(170, 220, 170);
+    border-color: rgb(80, 140, 80);
+    color: rgb(20, 80, 20);
+}
+.botao_secundario {
+    transition: 0.5s;
+    color: rgb(110, 110, 110);
+}
+.botao_secundario:hover {
+    transition: 0.5s;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
 /*Customizando inputs*/
+.input_form {
+    height: 34px;
+    text-transform: uppercase;
+}
+.sem-spinner::-webkit-inner-spin-button,
+.sem-spinner::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/*Customizando imagens*/
+
 /*Customizando tabelas*/
 .linha_resultado {background-color: rgb(220, 220, 220);}
 .linha_resultado:hover {

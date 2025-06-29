@@ -1,5 +1,10 @@
-//Função pra buscar produtos na tabela na página de produtos
+//Funções gerais
+//MODALS
+
+
 document.addEventListener("DOMContentLoaded", function () {
+//LISTA DE PRODUTOS
+//Função pra buscar produtos na tabela na página de produtos
     function buscarProdutos(termo) {
         fetch('controllers/produtoController.php', {
             method: 'POST',
@@ -16,15 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Erro ao buscar produtos:', err);
         });
     }
-
     document.addEventListener('input', function (e) {
         if (e.target && e.target.id === 'campo_pesquisa_produto') {
             const termo = e.target.value;
             buscarProdutos(termo);
         }
     });
-
-    // Exibe a lista ao carregar a página
+    // Exibe a lista de produtos ao carregar a página
     document.addEventListener("paginaProdutosCarregada", function () {
         buscarProdutos("");
     
@@ -60,10 +63,59 @@ document.addEventListener("DOMContentLoaded", function () {
         const id = linha.getAttribute("data-id");
         obter_informacoes_produto(id);
     }
-});
+    });
+
+    //Cadastro de produto
+    document.addEventListener('submit', function (e) {
+        if (e.target && e.target.id === 'form_cadastro_produto') {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            fetch('controllers/produtoController.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.text())
+            .then(resposta => {
+                if (resposta.trim() === "ok") {
+                    fecharModalCadastro();
+                    document.dispatchEvent(new Event("paginaProdutosCarregada"));
+                } else {
+                    alert("Erro ao cadastrar produto: " + resposta);
+                }
+            })
+            .catch(err => {
+                alert("Erro ao cadastrar produto.");
+                console.error(err);
+            });
+        }
+    });
 
 });
 
+
+function abrirModalCadastro() {
+  fetch("views/modals/cadastro_produto.php")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("modal_cadastro_produto_conteudo").innerHTML = html;
+      document.getElementById("modal_cadastro_produto").style.display = "block";
+    })
+    .catch(err => console.error("Erro ao carregar modal:", err));
+}
+
+function fecharModalCadastro() {
+  document.getElementById("modal_cadastro_produto").style.display = "none";
+}
+
+window.onclick = function (event) {
+  const modal = document.getElementById("modal_cadastro_produto");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+}
 
 
 //27/06/2025 - 00h48:
