@@ -28,9 +28,6 @@
                                 <th class="tabela_colunaEstoque">Estoque</th>
                         </thead>
                         <tbody id="tabela_produtos">
-
-                            <!-- TODO: Os produtos serão inseridos aqui dinamicamente, configurar isso mais tarde 
-                            Devo criar uma classe pra gerar diferentes tabelas de produtos para cada view?-->
                         </tbody>
                     </table>
                 </div>
@@ -57,8 +54,8 @@
             </div>
         </div>
         <div id="produtos_areaExibicao_botoes">
-            <button id="btn_editar_dados_produto">Editar Dados</button>
-            <button id="btn_lancar_estoque_produto">Lançar Estoque</button>
+            <button id="btn_editar_dados_produto" onclick="abrirModalEditarProduto(document.getElementById('lbl_ID_produto').textContent)">Editar Dados</button>
+            <button id="btn_lancar_estoque_produto" onclick="abrirModalLancarEstoque(document.getElementById('lbl_ID_produto').textContent)">Lançar Estoque</button>
         </div>
 
     </div>
@@ -68,8 +65,25 @@
     <div class="modal_header">
         <h2>Cadastrar Produto</h2>
     </div>
-    <div id="modal_cadastro_produto_conteudo"></div> 
+    <div class="modal_conteudo" id="modal_cadastro_produto_conteudo"></div> 
   </div>
 </div>
+<div id="modal_lancar_estoque" class="modal" style="display: none;">
+    <div class="modal_container" id="modal_lancar_estoque_container">
+        <div class="modal_header">
+            <h2>Lançar Estoque</h2>
+        </div>
+        <div class="modal_conteudo" id="modal_lancar_estoque_conteudo"></div>
+    </div>
+</div>
+<div id="modal_editar_produto" class="modal" style="display: none;">
+    <div class="modal_container" id="modal_editar_produto_container">
+        <div class="modal_header">
+            <h2>Editar dados do produto</h2>
+        </div>
+        <div class="modal_conteudo" id="modal_editar_produto_conteudo"></div>
+    </div>
+</div>
+
 
 

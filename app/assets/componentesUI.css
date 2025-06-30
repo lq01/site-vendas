@@ -13,13 +13,20 @@
   align-content: center;
 }
 .modal_container {
-  background: rgb(240,240,240);
-  margin: 5% auto;
-  padding: 0px;
+    background: rgb(240,240,240);
+    margin: 5% auto;
+    padding: 2px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
+    box-shadow: 0px 15px 25px rgba(0,0,0,0.3);
+}
+.modal_conteudo {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
+    padding-bottom: 0px;
 }
 .fechar {
   float: right;
@@ -49,7 +56,7 @@
     padding: 0 20px; 
 }
 .modal_botao {
-    height: 40px;
+    height: 45px;
     min-width: 110px;
     margin-left: 10px;
     border-color: gray;
@@ -61,6 +68,9 @@
     height: 250px;
     width: 250px;
 }
+.modal_lbl_info_produto {
+    margin-bottom: 18px;
+}
 /*Customizando forms*/
 form {
     padding: 10px;
@@ -70,31 +80,55 @@ form {
     display: flex;
     flex-direction: column;
 }
+.input_container:has(input:hover) input, .input_container:has(input:focus) input {
+    border-color: rgb(39, 114, 255);
+    color: rgb(17, 49, 110);
+    border-style: solid;
+    border-width: 1px;
+}
+.input_container:has(input:hover) label, .input_container:has(input:focus) label {
+    color: rgb(39, 114, 255);
+}
 
 /*Customizando botões*/
 button {
     height: 50px;
     cursor: pointer;
+    transition: 0.5s;
+}
+button:disabled:hover {
+    cursor: not-allowed;
+}
+button:not(:disabled):hover {
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+    transition: 0.5s;
 }
 .botao_confirmar {
-    transition: 0.5s;
     border-style: solid;
     border-width: 1px;
 }
-.botao_confirmar:hover {
-    transition: 0.5s;
+.botao_confirmar:disabled {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(190, 190, 190);
+    color: rgb(190, 190, 190);
+    cursor: not-allowed;
+}
+.botao_confirmar:not(:disabled):hover {
     background-color: rgb(170, 220, 170);
     border-color: rgb(80, 140, 80);
     color: rgb(20, 80, 20);
 }
 .botao_secundario {
-    transition: 0.5s;
     color: rgb(110, 110, 110);
 }
 .botao_secundario:hover {
-    transition: 0.5s;
     color: black;
     background-color: rgba(255, 255, 255, 0.6);
+}
+.botao_numerico {
+    height: 34px;
+    width: 34px;
 }
 
 /*Customizando inputs*/

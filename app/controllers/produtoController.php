@@ -4,12 +4,13 @@ require_once '../model/Produto.php';
 require_once '../helpers/ManagerUI.php';
 //TODO: obter dados especificos dos JSONs retornados.
 //TODO: corrigir salvamento de valores monetarios no banco estão como float ao invés de decimal
+//Por conta do tempo curto, algumas funcionalidades funcionarão de maneira mais "grosseira", consequentemente, ocasionando mais consumo de processamento do servidor.
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $acao = $_POST['acao'] ?? '';
 
     if ($acao === 'cadastrar') {
-        $nome = strtoupper($_POST['nome_produto']);
+        $nome = mb_strtoupper($_POST['nome_produto']);
         $cod_barras = $_POST['cod_barras'];
         $valor = $_POST['valor_produto'];
         $qt_estoque = $_POST['qt_estoque'];
@@ -23,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if ($acao === 'buscar_produto_nome_id_codBarras'){
         $resultado = null;
-        $termo_busca = strtoupper($_POST['campo_pesquisa_produto'] ?? '');
+        $termo_busca = mb_strtoupper($_POST['campo_pesquisa_produto'] ?? '');
 
         if (substr($termo_busca, 0, 1) === "%" || empty($termo_busca)) {
             $produto_buscado = new Produto($conn);
@@ -46,18 +47,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($acao === 'lancar_estoque_produto'){
         $id = $_POST['id_produto'] ?? "";
         $qt_lancada = $_POST['qt_lancada'] ?? "";
-        if (!empty($id) || $qt_lancada > 0) {
+        if (!empty($id) && $qt_lancada > 0) {
             $produto_modificado = new Produto($conn);
             $resultado = $produto_modificado->lancarEstoque($id, $qt_lancada);
             if ($resultado === null || $resultado === false) {
-                return false;
+                exit("erro");
             }
-            echo "ID " . $id . ": foram lançadas ". $qt_lancada . " unidades.";
+            exit("ok");
         }
     }
     if ($acao === 'editar_produto') {
         $id = $_POST['id_produto'] ?? "";
-        $nome_editar = strtoupper($_POST["nome_produto"]) ?? "";
+        $nome_editar = mb_strtoupper($_POST["nome_produto"]) ?? "";
         $estoque_editar = $_POST["qt_estoque"] ?? "";
         $cod_barras_editar = $_POST["cod_barras"] ?? "";
         $valor_editar = $_POST["valor_produto"] ?? "";
@@ -68,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($resultado === null || $resultado === false) {
                 return false;
             }
-            echo "Dados de produto alterados com sucesso.";
+            exit("ok");
         } else {
             echo "Erro ao modificar produto: Nenhum ID de produto foi fornecido";
         }

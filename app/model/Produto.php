@@ -80,7 +80,7 @@ class Produto {
     $id_produto = (int)$id_produto;
     $success = true;
 
-    if (!empty($cod_barras) && (strlen((string)$cod_barras) === 13)) {
+    if (strlen((string)$cod_barras) === 13 || strlen((string)$cod_barras) === 0) {
         $stmt = $this->conn->prepare("UPDATE produtos SET codigo_barras = ? WHERE id_produto = ?");
         $stmt->bind_param("si", $cod_barras, $id_produto);
         if (!$stmt->execute()) {
