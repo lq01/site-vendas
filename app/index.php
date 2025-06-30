@@ -31,6 +31,7 @@
         </div>
         <script src="assets/index.js"></script>
         <script src="assets/operacoes.js"></script>
+        <script src="assets/eventos.js"></script>
     </body>
 </html>
 <!--

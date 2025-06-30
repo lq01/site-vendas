@@ -21,6 +21,7 @@
         </div>
         <div id="area_cadastrar_imagem">
             <img class="modal_img_produto" id="img_cadastro_produto" src="assets/img/image.png">
+            <input type="file" class="input_imagem" id="input_cadastrar_imagem_produto" name="upload_imagem" accept="image/*">
         </div>
     </div>
     <div class="modal_painel_botoes">
@@ -29,4 +30,3 @@
     </div>
     
 </form>
-

@@ -14,9 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cod_barras = $_POST['cod_barras'];
         $valor = $_POST['valor_produto'];
         $qt_estoque = $_POST['qt_estoque'];
+        $imagem = null;
+        if (isset($_FILES['upload_imagem']) && $_FILES['upload_imagem']['error'] === UPLOAD_ERR_OK) {
+            $imagem = file_get_contents($_FILES['upload_imagem']['tmp_name']);
+        }
 
         $produto = new Produto($conn);
-        if ($produto->cadastrar($nome, $cod_barras, $valor, $qt_estoque)) {
+        if ($produto->cadastrar($nome, $cod_barras, $valor, $qt_estoque, $imagem)) {
             exit("ok");
         } else {
             exit("erro");
@@ -63,9 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cod_barras_editar = $_POST["cod_barras"] ?? "";
         $valor_editar = $_POST["valor_produto"] ?? "";
         $status_editar = $_POST["status_produto"] ?? "";
+        $imagem_editar = null;
+        if (isset($_FILES['upload_imagem']) && $_FILES['upload_imagem']['error'] === UPLOAD_ERR_OK) {
+            $imagem_editar = file_get_contents($_FILES['upload_imagem']['tmp_name']);
+        }
         if (!empty($id)) {
             $produto_modificado = new Produto($conn);
-            $resultado = $produto_modificado->editarProduto($id, $cod_barras_editar, $nome_editar, $estoque_editar, $valor_editar, $status_editar);
+            $resultado = $produto_modificado->editarProduto($id, $cod_barras_editar, $nome_editar, $estoque_editar, $valor_editar, $imagem_editar, $status_editar);
             if ($resultado === null || $resultado === false) {
                 return false;
             }
@@ -80,8 +88,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = intval($_POST['id_produto'] ?? 0);
         $produto = new Produto($conn);
         $resultado = $produto->buscarID($id);
+        if ($resultado) {
+            $imagem = $produto->obterImagem($id);
+            if ($imagem !== null) {
+                $resultado[0]['imagem'] = base64_encode($imagem);
+            } else {
+                $resultado[0]['imagem'] = null;
+            }
         echo json_encode($resultado);
         return;
     }
 }
-
+}

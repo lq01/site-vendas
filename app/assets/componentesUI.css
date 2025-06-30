@@ -76,7 +76,7 @@ form {
     padding: 10px;
 }
 .input_container {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
 }
@@ -88,6 +88,13 @@ form {
 }
 .input_container:has(input:hover) label, .input_container:has(input:focus) label {
     color: rgb(39, 114, 255);
+}
+.header_id {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    border-bottom: 2px solid #ccc; 
+    margin-bottom: 10px;
 }
 
 /*Customizando botões*/
@@ -143,7 +150,20 @@ button:not(:disabled):hover {
 }
 
 /*Customizando imagens*/
-
+img {
+    border-style: solid;
+    border-radius: 0px;
+    border-color: rgb(120,120,120);
+    border-width: 1px;
+}
+.input_imagem {
+    width: 100%;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: initial;
+    white-space: nowrap;
+    font-size: 12px;
+}
 /*Customizando tabelas*/
 .linha_resultado {background-color: rgb(220, 220, 220);}
 .linha_resultado:hover {

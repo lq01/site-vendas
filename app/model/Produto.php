@@ -7,10 +7,14 @@ class Produto {
         $this->conn = $conexao;
     }
 
-    public function cadastrar($nome, $cod_barras, $valor, $qt_estoque) {
-        $stmt = $this->conn->prepare("INSERT INTO produtos (nome, codigo_barras, valor, qt_estoque) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssdd", $nome, $cod_barras, $valor, $qt_estoque); // s = string, d = double, i = int
-
+    public function cadastrar($nome, $cod_barras, $valor, $qt_estoque, $imagem) {
+        $nullBlob = null;
+        $stmt = $this->conn->prepare("INSERT INTO produtos (nome, codigo_barras, valor, qt_estoque, imagem) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssdib", $nome, $cod_barras, $valor, $qt_estoque, $nullBlob);
+        if (!$imagem == null){
+            $stmt->send_long_data(4, $imagem); //indice 4 quer dizer posicao 5
+            }
+            
         if ($stmt->execute()) {
             return true;
         } else {
@@ -18,21 +22,22 @@ class Produto {
         }
     }
     public function buscarID($id_produto){
-        $stmt = $this->conn->prepare("SELECT * FROM produtos WHERE id_produto = ?"); //AND status = 1?
+        $stmt = $this->conn->prepare("SELECT id_produto, nome, codigo_barras, valor, qt_estoque FROM produtos WHERE id_produto = ?");
         $stmt->bind_param("i", $id_produto);
-        
-        if ($stmt->execute()) {
-        $resultado = $stmt->get_result();
-        $produto = $resultado->fetch_assoc();
 
-        return $produto ? [$produto] : [];
+        if ($stmt->execute()) {
+            $resultado = $stmt->get_result();
+            $produto = $resultado->fetch_assoc();
+
+            return $produto ? [$produto] : [];
         }
 
-    return [];
+        return [];
     }
+
     public function buscarNome($termo_busca){
-        $termo_busca_curingas = '%' . $termo_busca .'%'; //"curingas" é o nome dado a esses '%' 
-        $stmt = $this->conn->prepare("SELECT * FROM produtos WHERE nome LIKE ?");
+        $termo_busca_curingas = '%' . $termo_busca .'%';
+        $stmt = $this->conn->prepare("SELECT id_produto, nome, codigo_barras, valor, qt_estoque FROM produtos WHERE nome LIKE ?");
         $stmt->bind_param("s", $termo_busca_curingas);
 
         if ($stmt->execute()) {
@@ -40,12 +45,11 @@ class Produto {
             return $resultado->fetch_all(MYSQLI_ASSOC);
         }
         return false;
-        
-
     }
+
     public function buscarCodBarras($termo_busca){
-        $termo_busca_curingas = '%' . $termo_busca .'%'; //"curingas" é o nome dado a esses '%' 
-        $stmt = $this->conn->prepare("SELECT * FROM produtos WHERE codigo_barras LIKE ?");
+        $termo_busca_curingas = '%' . $termo_busca .'%';
+        $stmt = $this->conn->prepare("SELECT id_produto, nome, codigo_barras, valor, qt_estoque FROM produtos WHERE codigo_barras LIKE ?");
         $stmt->bind_param("s", $termo_busca_curingas);
 
         if ($stmt->execute()) {
@@ -53,8 +57,6 @@ class Produto {
             return $resultado->fetch_all(MYSQLI_ASSOC);
         }
         return false;
-        
-
     }
     public function lancarEstoque($id_produto, $qt_estoque_lancado){
         $stmt = $this->conn->prepare("UPDATE produtos SET qt_estoque = qt_estoque + ? WHERE id_produto = ?");
@@ -72,7 +74,7 @@ class Produto {
             return false; 
         }
     }  
-    public function editarProduto($id_produto, $cod_barras, $nome, $qt_estoque, $valor, $status){
+    public function editarProduto($id_produto, $cod_barras, $nome, $qt_estoque, $valor, $imagem, $status){
     if (empty($id_produto) || !is_numeric($id_produto) || $id_produto <= 0) {
         echo "Digite o ID de produto para fazer modificações";
         return false;
@@ -128,6 +130,17 @@ class Produto {
             $success = false;
         }
     }
+    if (!empty($imagem) && $imagem != null) {
+        $nullBlob = null;
+        $stmt = $this->conn->prepare("UPDATE produtos SET imagem = ? WHERE id_produto = ?");
+        $stmt->bind_param("bi", $nullBlob, $id_produto);
+        $stmt->send_long_data(0, $imagem);
+        if (!$stmt->execute()) {
+            $success = false;
+            error_log("Erro ao atualizar imagem:". $stmt->error);
+        }
+        $stmt->close();
+    }
     if (!empty($status) || $status == 0) {
         if (is_numeric($status)) {
             $status = (int)$status;
@@ -145,5 +158,17 @@ class Produto {
     }
     return $success;
     }
-    //TODO: INDAGAÇÃO: Devo criar uma função obterProduto($id_produto) que retorne o produto completo, e exatamente o produto buscado, ou seja, com todos os atributos?
+    public function obterImagem($id_produto) {
+    $stmt = $this->conn->prepare("SELECT imagem FROM produtos WHERE id_produto = ?");
+    $stmt->bind_param("i", $id_produto);
+    if ($stmt->execute()) {
+        $resultado = $stmt->get_result();
+        if ($row = $resultado->fetch_assoc()) {
+            return $row['imagem'];
+        }
+    }
+    return null;
 }
+    }
+    //TODO: INDAGAÇÃO: Devo criar uma função obterProduto($id_produto) que retorne o produto completo, e exatamente o produto buscado, ou seja, com todos os atributos?
+

@@ -1,7 +1,11 @@
+<div class="header_id">
+    <label class="titulo_discreto">ID DO PRODUTO</label>
+    <h2 id="editar_produto_lbl_ID_produto" style="margin-bottom: 5px;"></h2>
+</div>
 <form id="form_editar_produto">
     <input type="hidden" name="acao" value="editar_produto">
     <input type="hidden" id="hiddeninput_editar_produto_id_produto" name="id_produto" value="">
-    <div id="area_editar_produto"></div>
+    <div id="area_editar_produto">
         <div id="area_editar_produto_informacoes">
             <div class="input_container">
                 <label for="nome_produto" class="titulo_discreto">NOME DO PRODUTO</label>
@@ -23,7 +27,7 @@
         </div>
         <div id="area_editar_produto_imagem">
             <img class="modal_img_produto" id="img_editar_produto" src="assets/img/image.png">
-            <input type="file" id="input_imagem_produto" name="upload_imagem_produto" accept="image/*">
+            <input type="file" class="input_imagem" id="input_editar_imagem_produto" name="upload_imagem" accept="image/*">
         </div>
     </div>
     <div class="modal_painel_botoes">
@@ -31,3 +35,4 @@
         <button type="submit" class="modal_botao botao_confirmar" id="btn_confirmar_edicao_produto">Salvar</button>
     </div>
 </form>
+

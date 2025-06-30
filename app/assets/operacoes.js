@@ -1,77 +1,12 @@
 //Funções gerais
 ///Eu tenho que organizar melhor esse script depois.
 document.addEventListener("DOMContentLoaded", function () {
-//LISTA DE PRODUTOS
-    //Função pra buscar produtos na tabela na página de produtos
-    function buscarProdutos(termo) {
-        fetch('controllers/produtoController.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'acao=buscar_produto_nome_id_codBarras&campo_pesquisa_produto=' + encodeURIComponent(termo)
-        })
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById('tabela_produtos').innerHTML = html;
-        })
-        .catch(err => {
-            console.error('Erro ao buscar produtos:', err);
-        });
-    }
-    document.addEventListener('input', function (e) {
-        if (e.target && e.target.id === 'campo_pesquisa_produto') {
-            const termo = e.target.value;
-            buscarProdutos(termo);
-        }
-    });
-
-    // Exibe a lista de produtos ao carregar a página
-    document.addEventListener("paginaProdutosCarregada", function () {
-        buscarProdutos("");
-    
-    });
-    
-    function obterInformacoesProduto(id_produto) {
-        fetch('controllers/produtoController.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'acao=obter_informacoes_produto&id_produto=' + encodeURIComponent(id_produto)
-        })
-        .then(res => res.json())
-        .then(data => {
-            data = data[0];
-            if (data && data.id_produto) {
-                document.getElementById('lbl_ID_produto').textContent  = data.id_produto;
-                document.getElementById('lbl_nome_produto').textContent  = data.nome;
-                document.getElementById('lbl_codigo_barras').textContent  = data.codigo_barras;
-                document.getElementById('lbl_valor_unitario').textContent  = data.valor;
-                document.getElementById('lbl_estoque_atual').textContent  = data.qt_estoque;
-            } else {
-                console.error('Produto não encontrado ou dados inválidos:', data);
-            }
-        })
-        .catch(err => {
-            console.error('Erro ao obter informações do produto:', err);
-        });
-    }
-    document.addEventListener("click", function (e) {
-    const linha = e.target.closest(".linha_resultado");
-    if (linha) {
-        const id = linha.getAttribute("data-id");
-        obterInformacoesProduto(id);
-    }
-    });
-
     //Envia cadastro de produto
     document.addEventListener('submit', function (e) {
         if (e.target && e.target.id === 'form_cadastro_produto') {
             e.preventDefault();
             const form = e.target;
             const formData = new FormData(form);
-
             fetch('controllers/produtoController.php', {
                 method: 'POST',
                 body: formData
@@ -128,18 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             const form = e.target;
 
-            const campos = [
-                'editar_produto_nome_produto',
-                'editar_produto_cod_barras',
-                'editar_produto_valor_produto',
-                'editar_produto_qt_estoque'
-            ];
-
-            let houveMudanca = campos.some(id => {
-                const input = document.getElementById(id);
-                return input.value.trim() !== input.dataset.valorOriginal;
-            });
-
             const codBarrasInput = document.getElementById('editar_produto_cod_barras');
             let codBarrasValido = false;
             if (codBarrasInput) {
@@ -147,10 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 codBarrasValido = (val === "" || val.length === 13);
             }
 
-            if (!houveMudanca) {
-                alert("Nenhuma alteração detectada.");
-                return;
-            }
             if (!codBarrasValido) {
                 alert("O campo Código de Barras deve estar vazio ou conter exatamente 13 caracteres.");
                 return;
@@ -179,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
         }
     });
+    
 });
 //MODALS
 ///1. LANÇAR ESTOQUE
@@ -212,6 +132,11 @@ function modalLancarEstoque_obterInformacoesProduto(id_produto) {
             document.getElementById('lancar_estoque_lbl_ID_produto').textContent  = data.id_produto;
             document.getElementById('lancar_estoque_lbl_nome_produto').textContent  = data.nome;
             document.getElementById('lancar_estoque_lbl_estoque_atual').textContent  = data.qt_estoque;
+            if (data.imagem) {
+                    document.getElementById('img_lancar_estoque_produto').src = 'data:image/png;base64,' + data.imagem;
+                } else {
+                    document.getElementById('img_lancar_estoque_produto').src = 'assets/img/image.png';
+                }
         } else {
             console.error('Produto não encontrado ou dados inválidos:', data);
         }
@@ -263,14 +188,24 @@ function modalEditarProduto_obterInformacoesProduto(id_produto) {
         data = data[0];
         if (data && data.id_produto) {
             document.getElementById('hiddeninput_editar_produto_id_produto').value = data.id_produto;
+            document.getElementById('editar_produto_lbl_ID_produto').textContent = data.id_produto;
             document.getElementById('editar_produto_nome_produto').value  = data.nome;
             document.getElementById('editar_produto_cod_barras').value  = data.codigo_barras;
             document.getElementById('editar_produto_valor_produto').value  = data.valor;
             document.getElementById('editar_produto_qt_estoque').value  = data.qt_estoque;
+            if (data.imagem) {
+                    document.getElementById('img_editar_produto').src = 'data:image/png;base64,' + data.imagem;
+                    document.getElementById('img_editar_produto').dataset.valorOriginal = 'data:image/png;base64,' + data.imagem;
+                } else {
+                    document.getElementById('img_editar_produto').dataset.valorOriginal = 'assets/img/image.png';
+                    document.getElementById('img_editar_produto').src = 'assets/img/image.png';
+                }
+ 
             document.getElementById('editar_produto_nome_produto').dataset.valorOriginal = data.nome;
             document.getElementById('editar_produto_cod_barras').dataset.valorOriginal = data.codigo_barras;
             document.getElementById('editar_produto_valor_produto').dataset.valorOriginal = data.valor;
             document.getElementById('editar_produto_qt_estoque').dataset.valorOriginal = data.qt_estoque;
+            
             atualizarEstadoBotaoConfirmarEdicao();
         } else {
             console.error('Produto não encontrado ou dados inválidos:', data);
@@ -308,13 +243,6 @@ function abrirModalEditarProduto(id_produto) {
 function fecharModalEditarProduto() {
     document.getElementById("modal_editar_produto").style.display = "none";
 }
-// Fecha o modal ao clicar fora
-window.addEventListener("click", function(event) {
-    const modalEditar = document.getElementById("modal_editar_produto");
-    if (modalEditar && event.target === modalEditar) {
-        modalEditar.style.display = "none";
-    }
-});
 
 // Função para atualizar o estado do botão de confirmação
 function atualizarEstadoBotaoConfirmarEdicao() {
@@ -322,12 +250,19 @@ function atualizarEstadoBotaoConfirmarEdicao() {
         'editar_produto_nome_produto',
         'editar_produto_cod_barras',
         'editar_produto_valor_produto',
-        'editar_produto_qt_estoque'
+        'editar_produto_qt_estoque',
     ];
-    let houveMudanca = campos.some(id => {
+    const imagemAntiga = document.getElementById('img_editar_produto').dataset.valorOriginal
+    const imagemNovaCompleta = document.getElementById('img_editar_produto').src;
+    const imagemNova = imagemNovaCompleta.split('/assets/')[1] 
+    ? 'assets/' + imagemNovaCompleta.split('/assets/')[1]
+    : imagemNovaCompleta;
+    let houveMudanca = (
+        imagemAntiga !== imagemNova 
+        || campos.some(id => {
         const input = document.getElementById(id);
-        return input && input.value.trim() !== input.dataset.valorOriginal;
-    });
+        return input && input.value.trim() !== input.dataset.valorOriginal;  
+    })); 
 
     const codBarrasInput = document.getElementById('editar_produto_cod_barras');
     const nomeInput = document.getElementById('editar_produto_nome_produto');
@@ -348,7 +283,48 @@ function atualizarEstadoBotaoConfirmarEdicao() {
     }
 }
 
+    //DETECTA SE UM ITEM DA LISTA FOI CLICADO PARA EXIBIR DADOS NO PAINEL LATERAL
+    function obterInformacoesProduto(id_produto) {
+        fetch('controllers/produtoController.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'acao=obter_informacoes_produto&id_produto=' + encodeURIComponent(id_produto)
+        })
+        .then(res => res.json())
+        .then(data => {
+            data = data[0];
+            if (data && data.id_produto) {
+                document.getElementById('lbl_ID_produto').textContent  = data.id_produto;
+                document.getElementById('lbl_nome_produto').textContent  = data.nome;
+                document.getElementById('lbl_codigo_barras').textContent  = data.codigo_barras;
+                document.getElementById('lbl_valor_unitario').textContent  = data.valor;
+                document.getElementById('lbl_estoque_atual').textContent  = data.qt_estoque;
+                if (data.imagem) {
+                    document.getElementById('produtos_imagem_produto').src = 'data:image/png;base64,' + data.imagem;
+                } else {
+                    document.getElementById('produtos_imagem_produto').src = 'assets/img/image.png';
+                }
+                
+            } else {
+                console.error('Produto não encontrado ou dados inválidos:', data);
+            }
+        })
+        .catch(err => {
+            console.error('Erro ao obter informações do produto:', err);
+        });
+    }
+    document.addEventListener("click", function (e) {
+        const linha = e.target.closest(".linha_resultado");
+        if (linha) {
+            const id = linha.getAttribute("data-id");
+            obterInformacoesProduto(id);
+        }
+    });
 
 
 
+
+//POSTERIORMENTE, TRANSFERIR EVENTOS PARA eventos.js
 
