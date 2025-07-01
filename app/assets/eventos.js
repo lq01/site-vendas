@@ -26,7 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Exibe a lista de produtos ao carregar a página
     document.addEventListener("paginaProdutosCarregada", function () {
-        buscarProdutos("");
+        const idProdutoPesquisado = document.getElementById('campo_pesquisa_produto').value;
+        buscarProdutos(idProdutoPesquisado);
     
     });
     
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
-    // Detecta se ocorreu upload de imagem em Editar Produto
+    //Detecta se ocorreu upload de imagem em Editar Produto
     document.addEventListener('change', function(e) {
         if (e.target && e.target.id === 'input_editar_imagem_produto') {
             const input = e.target;

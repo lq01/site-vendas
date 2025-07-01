@@ -13,7 +13,7 @@
             </div>
             <div class="input_container">
                 <label for="cod_barras" class="titulo_discreto">CÓDIGO DE BARRAS</label>
-                <input type="number" class="input_form sem-spinner" id="editar_produto_cod_barras" name="cod_barras">
+                <input type="number" class="input_form sem-spinner" id="editar_produto_cod_barras" name="cod_barras" placeholder="opcional">
             </div>
             <div class="input_container">
                 <label for="valor_produto" class="titulo_discreto">VALOR UNITÁRIO</label>

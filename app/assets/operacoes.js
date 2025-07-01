@@ -306,6 +306,7 @@ function atualizarEstadoBotaoConfirmarEdicao() {
                 } else {
                     document.getElementById('produtos_imagem_produto').src = 'assets/img/image.png';
                 }
+                document.getElementById('produtos_areaExibicao').style.display = "flex";
                 
             } else {
                 console.error('Produto não encontrado ou dados inválidos:', data);
@@ -322,8 +323,6 @@ function atualizarEstadoBotaoConfirmarEdicao() {
             obterInformacoesProduto(id);
         }
     });
-
-
 
 
 //POSTERIORMENTE, TRANSFERIR EVENTOS PARA eventos.js

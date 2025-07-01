@@ -48,13 +48,27 @@ h4 {
     
 }
 .btn_navbar {
+    background-color: rgba(0, 0, 0, 0.0);
     width: 170px;
     height: 40px;
     margin-right: 15px;
     font-weight: 450;
+    border-style: solid;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: rgb(130, 184, 255);
+    color: rgb(201, 230, 255);
+    font-weight: 350;
 }
 #btn_nova_venda {
-    /*TODO: modificar estilo desse botão específico depois*/
+    background-color: rgb(141, 210, 255);
+    border-color: rgb(20, 65, 124);
+    color: rgb(20, 65, 124);
+}
+#btn_nova_venda:hover {
+    background-color: rgb(169, 220, 255);
+    border-color: rgb(20, 65, 124);
+    color: rgb(16, 51, 97);
 }
 /* Conteúdo (páginas) */
 #conteudo {

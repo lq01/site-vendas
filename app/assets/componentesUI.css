@@ -15,7 +15,7 @@
 .modal_container {
     background: rgb(240,240,240);
     margin: 5% auto;
-    padding: 2px;
+    padding: 1px 2px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 8px;
@@ -137,6 +137,22 @@ button:not(:disabled):hover {
     height: 34px;
     width: 34px;
 }
+.botao_pagina_secundario {
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(150, 150, 150);
+    color: rgb(110, 110, 110);
+    width: 150px;
+}
+.botao_pagina_secundario:hover {
+    border-color: rgb(110, 110, 110);
+    color: rgb(60, 60, 60);
+}
+.painel_botoes {
+    border-top: 2px solid #ccc;
+    padding: 0 20px; 
+}
 
 /*Customizando inputs*/
 .input_form {
@@ -147,6 +163,12 @@ button:not(:disabled):hover {
 .sem-spinner::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+input::placeholder {
+    font-style: italic;
+    opacity: 0.3;
+    color: rgb(0, 0, 0);
+    text-transform: capitalize;
 }
 
 /*Customizando imagens*/
@@ -165,8 +187,11 @@ img {
     font-size: 12px;
 }
 /*Customizando tabelas*/
-.linha_resultado {background-color: rgb(220, 220, 220);}
+.linha_resultado {background-color: rgb(245, 245, 245);}
 .linha_resultado:hover {
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(235, 235, 235);
+    border-style: solid;
+    border-color: rgb(220,220,220);
+    border-width: 1px;
     cursor: pointer;
 }
