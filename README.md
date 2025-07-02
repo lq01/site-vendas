@@ -1,6 +1,6 @@
 <h1>Link para o site:</h1>
 <h3>Tanto o site de vendas como os outros projetos estão contidos nesse link.</h3>
-<h3>Ele não está no github pages.</h3>
+<h3>Ele NÃO está no github pages.</h3>
 <p>Por conta do prazo encerrar hoje (01/07/2025), e também do cancelamento do projeto do site de vendas, este se encontra incompleto, tendo apenas a página 'Produtos' Concluída.</p>
 <p>Entretanto, as funcionalidades da página de produtos estão todas completas.</p>
 
