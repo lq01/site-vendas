@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`produtos` (
   `qt_estoque` FLOAT NULL,
   `valor` FLOAT NULL,
   `status` INT NULL DEFAULT 1,
+  `imagem` mediumblob,
   PRIMARY KEY (`id_produto`))
 ENGINE = InnoDB;
 
